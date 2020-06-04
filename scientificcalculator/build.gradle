@@ -1,0 +1,99 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+bintray {
+    user = "poojasaid"
+    key = "384fffa595d60320d6b8b04cff3420dcb329de55"
+
+    //When uploading Maven-based publication files
+    publications = ['Production']
+
+    //When uploading configuration files
+    configurations = ['archives']
+
+    //    Whether version should be auto published after an upload
+    publish = true
+
+//    Whether to override version artifacts already published
+    override true
+
+    pkg {
+        repo = 'Saisha'
+        name = 'CustomeLibrary'
+//        websiteUrl = "siteUrl"
+//        vcsUrl = gitUrl
+        licenses = ['Apache-2.0']
+        /*version {
+            name = this.version
+            released = new Date()
+            vcsTag = this.version
+        }*/
+
+    }
+}
+
+publishing {
+    publications {
+        Production(MavenPublication) {
+            artifact("$buildDir/outputs/aar/scientificcalculator-release.aar")
+            // replace with your library name
+            groupId 'com.example.scientificcalculator'
+            artifactId 'scientificcalculator'
+            version '1.0'
+
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode('dependencies')
+
+                // Iterate over the implementation dependencies (we don't want the test ones),
+                // adding a <dependency> node for each
+                configurations.implementation.allDependencies.each {
+                    // Ensure dependencies such as fileTree are not included in the pom.
+                    if (it.name != 'unspecified') {
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', it.group)
+                        dependencyNode.appendNode('artifactId', it.name)
+                        dependencyNode.appendNode('version', it.version)
+                    }
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}

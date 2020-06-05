@@ -9,7 +9,7 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 29
-        versionCode 1
+        versionCode 8
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -38,25 +38,26 @@ bintray {
     publications = ['Production']
 
     //When uploading configuration files
-    configurations = ['archives']
+//    configurations = ['archives']
 
     //    Whether version should be auto published after an upload
-    publish = true
+
 
 //    Whether to override version artifacts already published
     override true
 
     pkg {
-        repo = 'Saisha'
-        name = 'CustomeLibrary'
-//        websiteUrl = "siteUrl"
-//        vcsUrl = gitUrl
+        repo = 'Ambadnya'
+        name = 'firstExample'
+        vcsUrl = 'https://github.com/PoojaSaid/Task-PublishLibrary.git'
         licenses = ['Apache-2.0']
-        /*version {
-            name = this.version
-            released = new Date()
-            vcsTag = this.version
-        }*/
+        version {
+            name = '1.0'
+            desc = 'Gradle Bintray Plugin 1.0 final'
+            released  = new Date()
+            vcsTag = '1.0'
+        }
+        publish = true
 
     }
 }
@@ -65,7 +66,6 @@ publishing {
     publications {
         Production(MavenPublication) {
             artifact("$buildDir/outputs/aar/scientificcalculator-release.aar")
-            // replace with your library name
             groupId 'com.example.scientificcalculator'
             artifactId 'scientificcalculator'
             version '1.0'

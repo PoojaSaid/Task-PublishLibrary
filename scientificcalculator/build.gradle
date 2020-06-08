@@ -9,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 29
-        versionCode 8
-        versionName "1.0"
+        versionCode 9
+        versionName "2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -52,10 +52,10 @@ bintray {
         vcsUrl = 'https://github.com/PoojaSaid/Task-PublishLibrary.git'
         licenses = ['Apache-2.0']
         version {
-            name = '1.0'
-            desc = 'Gradle Bintray Plugin 1.0 final'
+            name = '2.0'
+            desc = 'Gradle Bintray Plugin 2.0 final'
             released  = new Date()
-            vcsTag = '1.0'
+            vcsTag = '2.0'
         }
         publish = true
 
@@ -68,7 +68,7 @@ publishing {
             artifact("$buildDir/outputs/aar/scientificcalculator-release.aar")
             groupId 'com.example.scientificcalculator'
             artifactId 'scientificcalculator'
-            version '1.0'
+            version '2.0'
 
             pom.withXml {
                 def dependenciesNode = asNode().appendNode('dependencies')

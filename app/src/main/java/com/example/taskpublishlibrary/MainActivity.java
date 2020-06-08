@@ -17,15 +17,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Demo example = new Demo();
-        DemoTwo objOne = new DemoTwo();
-        DemoThree objTwo = new DemoThree();
-
         float addition = example.addition(2f, 10f);
         Log.d(TAG, "Addition:- "+addition);
 
+        DemoTwo objOne = new DemoTwo();
         String isEven = objOne.evenOrOdd(12);
         Log.d(TAG,"The number is " + isEven);
 
+
+        DemoThree objTwo = new DemoThree();
         Boolean status = objTwo.isPalindrome(101);
         Log.d(TAG,"Is the enter number is palindrome = " + status);
 
